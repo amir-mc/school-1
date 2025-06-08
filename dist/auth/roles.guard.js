@@ -23,6 +23,8 @@ let RolesGuard = class RolesGuard {
             return true;
         const request = context.switchToHttp().getRequest();
         const user = request.user;
+        console.log(request.user);
+        console.log('USER:', request.user);
         if (!requiredRoles.includes(user.role)) {
             throw new common_1.ForbiddenException('شما دسترسی لازم را ندارید');
         }
