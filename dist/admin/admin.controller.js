@@ -12,42 +12,33 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersController = void 0;
+exports.AdminController = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("./users.service");
-const roles_decorator_1 = require("../auth/roles.decorator");
+const users_service_1 = require("../users/users.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_guard_1 = require("../auth/roles.guard");
-let UsersController = class UsersController {
+const roles_decorator_1 = require("../auth/roles.decorator");
+let AdminController = class AdminController {
     usersService;
     constructor(usersService) {
         this.usersService = usersService;
     }
-    create(dto) {
+    createUser(dto) {
         return this.usersService.createUser(dto);
     }
-    findAll() {
-        return this.usersService.findAll();
-    }
 };
-exports.UsersController = UsersController;
+exports.AdminController = AdminController;
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('users'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], UsersController.prototype, "create", null);
-__decorate([
-    (0, roles_decorator_1.Roles)('ADMIN'),
-    (0, common_1.Get)(),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], UsersController.prototype, "findAll", null);
-exports.UsersController = UsersController = __decorate([
+], AdminController.prototype, "createUser", null);
+exports.AdminController = AdminController = __decorate([
+    (0, common_1.Controller)('admin'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
-    (0, common_1.Controller)('users'),
+    (0, roles_decorator_1.Roles)('ADMIN'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
-], UsersController);
-//# sourceMappingURL=users.controller.js.map
+], AdminController);
+//# sourceMappingURL=admin.controller.js.map

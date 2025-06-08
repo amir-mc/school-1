@@ -19,6 +19,12 @@ let UsersService = class UsersService {
         this.prisma = prisma;
     }
     async createUser(dto) {
+        const existing = await this.prisma.user.findUnique({
+            where: { username: dto.username },
+        });
+        if (existing) {
+            throw new Error('نام کاربری قبلاً استفاده شده است');
+        }
         const hashed = await bcrypt.hash(dto.password, 10);
         return this.prisma.user.create({
             data: {

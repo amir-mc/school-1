@@ -13,21 +13,29 @@ exports.JwtStrategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_jwt_1 = require("passport-jwt");
+const prisma_service_1 = require("../prisma/prisma.service");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
-    constructor() {
+    prisma;
+    constructor(prisma) {
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: 'secret-key',
         });
+        this.prisma = prisma;
     }
     async validate(payload) {
-        console.log('JWT PAYLOAD:', payload);
-        return { ...payload };
+        const user = await this.prisma.user.findUnique({
+            where: { id: payload.sub },
+        });
+        if (!user) {
+            throw new common_1.UnauthorizedException('کاربر یافت نشد');
+        }
+        return user;
     }
 };
 exports.JwtStrategy = JwtStrategy;
 exports.JwtStrategy = JwtStrategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [prisma_service_1.PrismaService])
 ], JwtStrategy);
 //# sourceMappingURL=jwt.strategy.js.map

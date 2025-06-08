@@ -23,7 +23,6 @@ let RolesGuard = class RolesGuard {
             return true;
         const request = context.switchToHttp().getRequest();
         const user = request.user;
-        console.log('USER IN ROLES GUARD:', user);
         if (!user)
             throw new common_1.UnauthorizedException('احراز هویت انجام نشد');
         if (!requiredRoles.includes(user.role)) {

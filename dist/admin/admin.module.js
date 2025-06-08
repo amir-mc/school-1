@@ -6,13 +6,17 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.JwtAuthGuard = void 0;
+exports.AdminModule = void 0;
 const common_1 = require("@nestjs/common");
-const passport_1 = require("@nestjs/passport");
-let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
+const admin_controller_1 = require("./admin.controller");
+const users_module_1 = require("../users/users.module");
+let AdminModule = class AdminModule {
 };
-exports.JwtAuthGuard = JwtAuthGuard;
-exports.JwtAuthGuard = JwtAuthGuard = __decorate([
-    (0, common_1.Injectable)()
-], JwtAuthGuard);
-//# sourceMappingURL=jwt-auth.guard.js.map
+exports.AdminModule = AdminModule;
+exports.AdminModule = AdminModule = __decorate([
+    (0, common_1.Module)({
+        imports: [users_module_1.UsersModule],
+        controllers: [admin_controller_1.AdminController],
+    })
+], AdminModule);
+//# sourceMappingURL=admin.module.js.map

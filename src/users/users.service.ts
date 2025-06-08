@@ -9,16 +9,25 @@ export class UsersService {
   constructor(private prisma: PrismaService) {}
 
   async createUser(dto: { name: string; username: string; password: string; role: string }) {
-    const hashed = await bcrypt.hash(dto.password, 10);
-    return this.prisma.user.create({
-       data: {
+  const existing = await this.prisma.user.findUnique({
+    where: { username: dto.username },
+  });
+
+  if (existing) {
+    throw new Error('نام کاربری قبلاً استفاده شده است');
+  }
+
+  const hashed = await bcrypt.hash(dto.password, 10);
+  return this.prisma.user.create({
+    data: {
       name: dto.name,
       username: dto.username,
       password: hashed,
-      role: dto.role as Role, // cast صحیح
+      role: dto.role as any,
     },
-    });
-  }
+  });
+}
+
 
   async findAll() {
     return this.prisma.user.findMany({

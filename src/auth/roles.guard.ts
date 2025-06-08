@@ -18,13 +18,10 @@ export class RolesGuard implements CanActivate {
     const request = context.switchToHttp().getRequest();
     const user = request.user;
 
-    console.log('USER IN ROLES GUARD:', user); // 👈 این باید role داشته باشه
-
     if (!user) throw new UnauthorizedException('احراز هویت انجام نشد');
     if (!requiredRoles.includes(user.role)) {
       throw new ForbiddenException('شما دسترسی لازم را ندارید');
     }
-
     return true;
   }
 }
