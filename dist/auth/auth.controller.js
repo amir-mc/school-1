@@ -21,6 +21,7 @@ let AuthController = class AuthController {
         this.authService = authService;
     }
     async login(body) {
+        console.log('Login route triggered', body);
         const user = await this.authService.validateUser(body.username, body.password);
         if (!user)
             throw new common_1.UnauthorizedException('نام کاربری یا رمز اشتباه است');

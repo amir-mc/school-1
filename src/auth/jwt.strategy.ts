@@ -11,7 +11,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  async validate(payload: any) {
-   return { id: payload.sub, role: payload.role };
-  }
+async validate(payload: any) {
+  console.log('JWT PAYLOAD:', payload);
+  return { ...payload }; // 👈 این‌طوری role دقیق پاس داده میشه
+}
 }

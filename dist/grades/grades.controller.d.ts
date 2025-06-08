@@ -10,15 +10,15 @@ export declare class GradesController {
     }): Promise<{
         id: string;
         createdAt: Date;
-        subject: string;
         studentId: string;
+        subject: string;
         value: number;
     }>;
     getStudentGrades(studentId: string): Promise<{
         id: string;
         createdAt: Date;
-        subject: string;
         studentId: string;
+        subject: string;
         value: number;
     }[]>;
 }
