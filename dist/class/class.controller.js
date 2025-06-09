@@ -12,77 +12,73 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.AdminController = void 0;
+exports.ClassController = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("../users/users.service");
+const class_service_1 = require("./class.service");
 const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
-const roles_guard_1 = require("../auth/roles.guard");
-const admin_service_1 = require("./admin.service");
 const roles_decorator_1 = require("../auth/roles.decorator");
-let AdminController = class AdminController {
-    usersService;
-    adminService;
-    constructor(usersService, adminService) {
-        this.usersService = usersService;
-        this.adminService = adminService;
+const roles_guard_1 = require("../auth/roles.guard");
+let ClassController = class ClassController {
+    classService;
+    constructor(classService) {
+        this.classService = classService;
     }
-    getAllUsers() {
-        return this.adminService.getAllUsers();
+    create(body) {
+        return this.classService.createClass(body);
     }
-    createUser(dto) {
-        return this.usersService.createUser(dto);
+    findAll() {
+        return this.classService.getAllClasses();
     }
-    deleteUser(id) {
-        return this.adminService.deleteUser(id);
+    findOne(id) {
+        return this.classService.getClassById(id);
     }
-    getUserById(id) {
-        return this.adminService.getUserById(id);
+    update(id, body) {
+        return this.classService.updateClass(id, body);
     }
-    updateUser(id, dto) {
-        return this.adminService.updateUser(id, dto);
+    remove(id) {
+        return this.classService.deleteClass(id);
     }
 };
-exports.AdminController = AdminController;
+exports.ClassController = ClassController;
 __decorate([
-    (0, common_1.Get)('users'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
-], AdminController.prototype, "getAllUsers", null);
-__decorate([
-    (0, common_1.Post)('users'),
+    (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
-], AdminController.prototype, "createUser", null);
+], ClassController.prototype, "create", null);
 __decorate([
-    (0, common_1.Delete)('users/:id'),
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], ClassController.prototype, "findAll", null);
+__decorate([
+    (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
-], AdminController.prototype, "deleteUser", null);
+], ClassController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Get)('users/:id'),
-    __param(0, (0, common_1.Param)('id')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
-], AdminController.prototype, "getUserById", null);
-__decorate([
-    (0, common_1.Patch)('users/:id'),
+    (0, common_1.Patch)(':id'),
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", void 0)
-], AdminController.prototype, "updateUser", null);
-exports.AdminController = AdminController = __decorate([
-    (0, common_1.Controller)('admin'),
+], ClassController.prototype, "update", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ClassController.prototype, "remove", null);
+exports.ClassController = ClassController = __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)('ADMIN'),
-    __metadata("design:paramtypes", [users_service_1.UsersService,
-        admin_service_1.AdminService])
-], AdminController);
-//# sourceMappingURL=admin.controller.js.map
+    (0, common_1.Controller)('admin/classes'),
+    __metadata("design:paramtypes", [class_service_1.ClassService])
+], ClassController);
+//# sourceMappingURL=class.controller.js.map

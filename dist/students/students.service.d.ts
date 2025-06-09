@@ -35,9 +35,9 @@ export declare class StudentsService {
             userId: string;
         };
         class: {
-            grade: number;
             id: string;
             name: string;
+            grade: number;
         };
     } & {
         id: string;

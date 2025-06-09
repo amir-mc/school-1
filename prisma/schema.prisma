@@ -35,8 +35,12 @@ model User {
   messagesSent     Message[] @relation("MessageSender")
   messagesReceived Message[] @relation("MessageReceiver")
 
+  classesTaught Class[] @relation("UserTaughtClasses")
+  classes       Class[] @relation("UserStudentClasses")
+
   createdAt DateTime @default(now())
 }
+
 
 model Student {
   id       String @id @default(uuid())
@@ -74,9 +78,14 @@ model Class {
   grade Int
 
   students  Student[]
-  teachers  Teacher[]  @relation("TeacherClasses") // ✅ رابطه معکوس
+  teachers  Teacher[]  @relation("TeacherClasses") // اگر از مدل Teacher هم استفاده می‌کنی نگه‌دار
+
+  userTeachers User[] @relation("UserTaughtClasses")
+  userStudents User[] @relation("UserStudentClasses")
+
   schedules Schedule[]
 }
+
 
 model Grade {
   id        String   @id @default(uuid())

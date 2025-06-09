@@ -6,9 +6,9 @@ export declare class TeachersService {
         teacherId: string;
         classId: string;
     }): Promise<{
-        grade: number;
         id: string;
         name: string;
+        grade: number;
     }>;
     getAll(): Promise<({
         user: {
@@ -20,9 +20,9 @@ export declare class TeachersService {
             createdAt: Date;
         };
         classes: {
-            grade: number;
             id: string;
             name: string;
+            grade: number;
         }[];
     } & {
         id: string;

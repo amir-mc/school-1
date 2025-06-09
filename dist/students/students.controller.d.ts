@@ -13,11 +13,6 @@ export declare class StudentsController {
         parentId: string;
     }>;
     getAll(): Promise<({
-        class: {
-            id: string;
-            name: string;
-            grade: number;
-        };
         user: {
             id: string;
             name: string;
@@ -38,6 +33,11 @@ export declare class StudentsController {
         } & {
             id: string;
             userId: string;
+        };
+        class: {
+            id: string;
+            name: string;
+            grade: number;
         };
     } & {
         id: string;
