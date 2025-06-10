@@ -17,10 +17,39 @@ let ClassService = class ClassService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async addTeacherToClass(classId, teacherId) {
+        const cls = await this.prisma.class.findUnique({ where: { id: classId } });
+        const teacher = await this.prisma.teacher.findUnique({ where: { id: teacherId } });
+        if (!cls)
+            throw new Error('کلاس مورد نظر یافت نشد');
+        if (!teacher)
+            throw new Error('معلم مورد نظر یافت نشد');
+        return this.prisma.class.update({
+            where: { id: classId },
+            data: {
+                teachers: {
+                    connect: { id: teacherId },
+                },
+            },
+        });
+    }
+    async removeTeacherFromClass(classId, teacherId) {
+        return this.prisma.class.update({
+            where: { id: classId },
+            data: {
+                teachers: {
+                    disconnect: { id: teacherId },
+                },
+            },
+            include: {
+                teachers: { include: { user: true } },
+            },
+        });
+    }
     createClass(data) {
         return this.prisma.class.create({ data });
     }
-    getAllClasses() {
+    async getAllClasses() {
         return this.prisma.class.findMany({
             include: {
                 students: {
@@ -30,6 +59,16 @@ let ClassService = class ClassService {
                     include: { user: true },
                 },
                 schedules: true,
+            },
+        });
+    }
+    async addStudentToClass(classId, studentId) {
+        return this.prisma.student.update({
+            where: { id: studentId },
+            data: { classId },
+            include: {
+                user: true,
+                class: true,
             },
         });
     }

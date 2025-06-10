@@ -11,16 +11,16 @@ export declare class SchedulesService {
     }): Promise<{
         id: string;
         classId: string;
-        day: string;
         subject: string;
+        day: string;
         startTime: string;
         endTime: string;
     }>;
     getSchedule(classId: string): Promise<{
         id: string;
         classId: string;
-        day: string;
         subject: string;
+        day: string;
         startTime: string;
         endTime: string;
     }[]>;

@@ -1,18 +1,14 @@
-import { StudentsService } from './students.service';
-export declare class StudentsController {
-    private readonly studentsService;
-    constructor(studentsService: StudentsService);
-    create(dto: {
-        userId: string;
-        classId: string;
-        parentId: string;
-    }): Promise<{
+import { PrismaService } from 'src/prisma/prisma.service';
+export declare class StudentService {
+    private prisma;
+    constructor(prisma: PrismaService);
+    createStudent(userId: string, parentId: string, classId: string): Promise<{
         id: string;
         userId: string;
         classId: string;
         parentId: string;
     }>;
-    getAll(): Promise<({
+    getAllStudents(): import("generated/prisma").Prisma.PrismaPromise<({
         user: {
             id: string;
             name: string;

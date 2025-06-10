@@ -6,11 +6,11 @@ export declare class ClassController {
         name: string;
         grade: number;
     }): import("generated/prisma").Prisma.Prisma__ClassClient<{
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
-    findAll(): import("generated/prisma").Prisma.PrismaPromise<({
+    findAll(): Promise<({
         students: ({
             user: {
                 id: string;
@@ -42,15 +42,15 @@ export declare class ClassController {
         schedules: {
             id: string;
             classId: string;
-            day: string;
             subject: string;
+            day: string;
             startTime: string;
             endTime: string;
         }[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     })[]>;
     findOne(id: string): import("generated/prisma").Prisma.Prisma__ClassClient<({
         students: ({
@@ -84,27 +84,71 @@ export declare class ClassController {
         schedules: {
             id: string;
             classId: string;
-            day: string;
             subject: string;
+            day: string;
             startTime: string;
             endTime: string;
         }[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }) | null, null, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
     update(id: string, body: {
         name?: string;
         grade?: number;
     }): import("generated/prisma").Prisma.Prisma__ClassClient<{
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
     remove(id: string): import("generated/prisma").Prisma.Prisma__ClassClient<{
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
+    addTeacherToClass(classId: string, teacherId: string): Promise<{
+        grade: number;
+        id: string;
+        name: string;
+    }>;
+    removeTeacherFromClass(classId: string, teacherId: string): Promise<{
+        teachers: ({
+            user: {
+                id: string;
+                name: string;
+                username: string;
+                password: string;
+                role: import("generated/prisma").$Enums.Role;
+                createdAt: Date;
+            };
+        } & {
+            id: string;
+            userId: string;
+        })[];
+    } & {
+        grade: number;
+        id: string;
+        name: string;
+    }>;
+    addStudentToClass(classId: string, studentId: string): Promise<{
+        user: {
+            id: string;
+            name: string;
+            username: string;
+            password: string;
+            role: import("generated/prisma").$Enums.Role;
+            createdAt: Date;
+        };
+        class: {
+            grade: number;
+            id: string;
+            name: string;
+        };
+    } & {
+        id: string;
+        userId: string;
+        classId: string;
+        parentId: string;
+    }>;
 }

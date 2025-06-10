@@ -38,6 +38,15 @@ let ClassController = class ClassController {
     remove(id) {
         return this.classService.deleteClass(id);
     }
+    addTeacherToClass(classId, teacherId) {
+        return this.classService.addTeacherToClass(classId, teacherId);
+    }
+    removeTeacherFromClass(classId, teacherId) {
+        return this.classService.removeTeacherFromClass(classId, teacherId);
+    }
+    addStudentToClass(classId, studentId) {
+        return this.classService.addStudentToClass(classId, studentId);
+    }
 };
 exports.ClassController = ClassController;
 __decorate([
@@ -75,6 +84,30 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ClassController.prototype, "remove", null);
+__decorate([
+    (0, common_1.Post)(':classId/teachers/:teacherId'),
+    __param(0, (0, common_1.Param)('classId')),
+    __param(1, (0, common_1.Param)('teacherId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], ClassController.prototype, "addTeacherToClass", null);
+__decorate([
+    (0, common_1.Delete)(':classId/teachers/:teacherId'),
+    __param(0, (0, common_1.Param)('classId')),
+    __param(1, (0, common_1.Param)('teacherId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], ClassController.prototype, "removeTeacherFromClass", null);
+__decorate([
+    (0, common_1.Post)(':classId/students/:studentId'),
+    __param(0, (0, common_1.Param)('classId')),
+    __param(1, (0, common_1.Param)('studentId')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, String]),
+    __metadata("design:returntype", void 0)
+], ClassController.prototype, "addStudentToClass", null);
 exports.ClassController = ClassController = __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),
     (0, roles_decorator_1.Roles)('ADMIN'),

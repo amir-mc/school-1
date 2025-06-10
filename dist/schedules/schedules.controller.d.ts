@@ -11,16 +11,16 @@ export declare class SchedulesController {
     }): Promise<{
         id: string;
         classId: string;
-        day: string;
         subject: string;
+        day: string;
         startTime: string;
         endTime: string;
     }>;
     get(classId: string): Promise<{
         id: string;
         classId: string;
-        day: string;
         subject: string;
+        day: string;
         startTime: string;
         endTime: string;
     }[]>;

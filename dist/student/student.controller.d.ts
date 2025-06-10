@@ -1,18 +1,18 @@
-import { StudentsService } from './students.service';
-export declare class StudentsController {
-    private readonly studentsService;
-    constructor(studentsService: StudentsService);
-    create(dto: {
+import { StudentService } from './student.service';
+export declare class StudentController {
+    private readonly studentService;
+    constructor(studentService: StudentService);
+    create(body: {
         userId: string;
-        classId: string;
         parentId: string;
+        classId: string;
     }): Promise<{
         id: string;
         userId: string;
         classId: string;
         parentId: string;
     }>;
-    getAll(): Promise<({
+    findAll(): import("generated/prisma").Prisma.PrismaPromise<({
         user: {
             id: string;
             name: string;
@@ -20,6 +20,11 @@ export declare class StudentsController {
             password: string;
             role: import("generated/prisma").$Enums.Role;
             createdAt: Date;
+        };
+        class: {
+            id: string;
+            name: string;
+            grade: number;
         };
         parent: {
             user: {
@@ -33,11 +38,6 @@ export declare class StudentsController {
         } & {
             id: string;
             userId: string;
-        };
-        class: {
-            grade: number;
-            id: string;
-            name: string;
         };
     } & {
         id: string;
