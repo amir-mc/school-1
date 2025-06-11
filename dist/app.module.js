@@ -17,6 +17,7 @@ const admin_module_1 = require("./admin/admin.module");
 const class_module_1 = require("./class/class.module");
 const teacher_module_1 = require("./teacher/teacher.module");
 const student_module_1 = require("./student/student.module");
+const parent_module_1 = require("./parent/parent.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -30,6 +31,7 @@ exports.AppModule = AppModule = __decorate([
             class_module_1.ClassModule,
             teacher_module_1.TeacherModule,
             student_module_1.StudentModule,
+            parent_module_1.ParentModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

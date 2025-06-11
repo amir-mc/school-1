@@ -21,11 +21,6 @@ export declare class StudentController {
             role: import("generated/prisma").$Enums.Role;
             createdAt: Date;
         };
-        class: {
-            id: string;
-            name: string;
-            grade: number;
-        };
         parent: {
             user: {
                 id: string;
@@ -38,6 +33,11 @@ export declare class StudentController {
         } & {
             id: string;
             userId: string;
+        };
+        class: {
+            grade: number;
+            id: string;
+            name: string;
         };
     } & {
         id: string;
