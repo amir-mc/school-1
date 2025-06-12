@@ -19,4 +19,24 @@ export class ParentService {
   async getParentById(id: string) {
     return this.prisma.parent.findUnique({ where: { id }, include: { user: true, students: true } });
   }
+  
+  async updateParent(id: string, data: { name?: string; username?: string; password?: string }) {
+  const parent = await this.prisma.parent.findUnique({
+    where: { id },
+    include: { user: true },
+  });
+
+  if (!parent) throw new Error('والد مورد نظر یافت نشد');
+
+  return this.prisma.user.update({
+    where: { id: parent.userId },
+    data,
+  });
+}
+
+async deleteParent(id: string) {
+  return this.prisma.parent.delete({
+    where: { id },
+  });
+}
 }

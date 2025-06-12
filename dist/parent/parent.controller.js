@@ -29,6 +29,12 @@ let ParentController = class ParentController {
     findOne(id) {
         return this.parentService.getParentById(id);
     }
+    updateParent(id, body) {
+        return this.parentService.updateParent(id, body);
+    }
+    deleteParent(id) {
+        return this.parentService.deleteParent(id);
+    }
 };
 exports.ParentController = ParentController;
 __decorate([
@@ -51,6 +57,21 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ParentController.prototype, "findOne", null);
+__decorate([
+    (0, common_1.Patch)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], ParentController.prototype, "updateParent", null);
+__decorate([
+    (0, common_1.Delete)(':id'),
+    __param(0, (0, common_1.Param)('id')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], ParentController.prototype, "deleteParent", null);
 exports.ParentController = ParentController = __decorate([
     (0, common_1.Controller)('admin/parents'),
     __metadata("design:paramtypes", [parent_service_1.ParentService])

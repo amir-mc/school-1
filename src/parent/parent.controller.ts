@@ -1,4 +1,4 @@
-import { Controller, Post, Get, Param, Body } from '@nestjs/common';
+import { Controller, Post, Get, Param, Body, Patch, Delete } from '@nestjs/common';
 import { ParentService } from './parent.service';
 
 @Controller('admin/parents')
@@ -19,4 +19,17 @@ export class ParentController {
   findOne(@Param('id') id: string) {
     return this.parentService.getParentById(id);
   }
+@Patch(':id')
+updateParent(
+  @Param('id') id: string,
+  @Body() body: { name?: string; username?: string; password?: string }
+) {
+  return this.parentService.updateParent(id, body);
+}
+
+
+@Delete(':id')
+deleteParent(@Param('id') id: string) {
+  return this.parentService.deleteParent(id);
+}
 }

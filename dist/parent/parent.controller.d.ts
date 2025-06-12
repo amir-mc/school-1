@@ -46,4 +46,20 @@ export declare class ParentController {
         id: string;
         userId: string;
     }) | null>;
+    updateParent(id: string, body: {
+        name?: string;
+        username?: string;
+        password?: string;
+    }): Promise<{
+        id: string;
+        name: string;
+        username: string;
+        password: string;
+        role: import("generated/prisma").$Enums.Role;
+        createdAt: Date;
+    }>;
+    deleteParent(id: string): Promise<{
+        id: string;
+        userId: string;
+    }>;
 }
