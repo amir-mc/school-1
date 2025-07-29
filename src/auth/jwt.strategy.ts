@@ -9,7 +9,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: 'secret-key',
-    });
+    }); 
   }
  
   // برگرداندن کل موجودیت کاربر از دیتابیس
