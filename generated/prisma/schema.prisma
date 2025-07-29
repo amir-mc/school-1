@@ -1,0 +1,129 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  TEACHER
+  PARENT
+  STUDENT
+}
+
+model User {
+  id       String @id @default(uuid())
+  name     String
+  username String @unique
+  password String
+  role     Role
+
+  student Student?
+  teacher Teacher?
+  parent  Parent?
+
+  messagesSent     Message[] @relation("MessageSender")
+  messagesReceived Message[] @relation("MessageReceiver")
+
+  classesTaught Class[] @relation("UserTaughtClasses")
+  classes       Class[] @relation("UserStudentClasses")
+
+  createdAt DateTime @default(now())
+}
+
+model Student {
+  id       String  @id @default(uuid())
+  userId   String  @unique
+  user     User    @relation(fields: [userId], references: [id])
+  classId  String
+  class    Class   @relation(fields: [classId], references: [id])
+  parentId String?
+  parent   Parent? @relation(fields: [parentId], references: [id])
+
+  grades Grade[]
+}
+
+model Parent {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  students Student[]
+  feedback Feedback[]
+}
+
+model Teacher {
+  id     String @id @default(uuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  classes   Class[]    @relation("TeacherClasses") // ✅ بدون references
+  feedbacks Feedback[]
+}
+
+model Class {
+  id    String @id @default(uuid())
+  name  String
+  grade Int
+
+  students Student[]
+  teachers Teacher[] @relation("TeacherClasses") // اگر از مدل Teacher هم استفاده می‌کنی نگه‌دار
+
+  userTeachers User[] @relation("UserTaughtClasses")
+  userStudents User[] @relation("UserStudentClasses")
+
+  schedules Schedule[]
+}
+
+model Grade {
+  id        String   @id @default(uuid())
+  studentId String
+  subject   String
+  value     Float
+  student   Student  @relation(fields: [studentId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model Schedule {
+  id        String @id @default(uuid())
+  classId   String
+  day       String
+  subject   String
+  startTime String
+  endTime   String
+  class     Class  @relation(fields: [classId], references: [id])
+}
+
+model Message {
+  id       String  @id @default(uuid())
+  content  String
+  fromId   String
+  toId     String?
+  isPublic Boolean @default(false)
+  isRead   Boolean @default(false)
+  sender   User    @relation("MessageSender", fields: [fromId], references: [id])
+  receiver User?   @relation("MessageReceiver", fields: [toId], references: [id])
+
+  createdAt DateTime @default(now())
+}
+
+model Feedback {
+  id        String  @id @default(uuid())
+  parentId  String
+  teacherId String
+  score     Int
+  comment   String?
+
+  parent  Parent  @relation(fields: [parentId], references: [id])
+  teacher Teacher @relation(fields: [teacherId], references: [id])
+}
