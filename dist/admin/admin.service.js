@@ -93,14 +93,16 @@ let AdminService = class AdminService {
         });
     }
     async createUser(dto) {
-        const { name, username, password, role, classId } = dto;
+        const { name, username, password, role, classId, nationalId } = dto;
+        const hashedPassword = await bcrypt.hash(password, 10);
         return this.prisma.user.create({
             data: {
+                id: nationalId,
                 name,
                 username,
-                password,
+                password: hashedPassword,
                 role: role,
-                student: role === "STUDENT" && classId
+                student: role === 'STUDENT' && classId
                     ? {
                         create: {
                             classId,

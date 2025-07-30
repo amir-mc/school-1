@@ -5,6 +5,7 @@ export declare class AdminController {
     private readonly adminService;
     constructor(usersService: UsersService, adminService: AdminService);
     createUser(dto: {
+        nationalId: string;
         name: string;
         username: string;
         password: string;

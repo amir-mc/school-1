@@ -64,6 +64,7 @@ export declare class AdminService {
     createUser(dto: {
         name: string;
         username: string;
+        nationalId: string;
         password: string;
         role: string;
         classId?: string;

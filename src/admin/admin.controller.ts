@@ -21,7 +21,7 @@ export class AdminController {
   // }
 
   @Post('users')
-  createUser(@Body() dto: { name: string; username: string; password: string; role: string ; classId?: string }) {
+  createUser(@Body() dto: {nationalId:string ; name: string; username: string; password: string; role: string ; classId?: string }) {
     
     return this.adminService.createUser(dto);
   }

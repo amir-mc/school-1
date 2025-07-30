@@ -96,19 +96,22 @@ getAllClasses() {
   async createUser(dto: {
   name: string;
   username: string;
+  nationalId: string;
   password: string;
   role: string;
   classId?: string;
 }) {
-  const { name, username, password, role, classId } = dto;
+  const { name, username, password, role, classId, nationalId } = dto;
+  const hashedPassword = await bcrypt.hash(password, 10);
 
   return this.prisma.user.create({
     data: {
+      id: nationalId , // 👈 تبدیل به رشته
       name,
       username,
-      password,
+      password: hashedPassword,
       role: role as Role,
-      student: role === "STUDENT" && classId
+      student: role === 'STUDENT' && classId
         ? {
             create: {
               classId,
@@ -118,6 +121,7 @@ getAllClasses() {
     },
   });
 }
+
 
 async countUsersByRole(role: string): Promise<{ count: number }> {
   if (role === 'ALL') {
