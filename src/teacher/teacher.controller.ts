@@ -7,6 +7,7 @@ import {
   Delete,
   Body,
   UseGuards,
+  Query,
 } from '@nestjs/common';
 import { TeacherService } from './teacher.service';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
@@ -37,5 +38,11 @@ export class TeacherController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.teacherService.deleteTeacher(id);
+  }
+   @Get('validate/ids')
+  async validateTeachers(@Query('ids') ids: string) {
+    const teacherIds = ids.split(',');
+    await this.teacherService.validateTeachers(teacherIds);
+    return { valid: true };
   }
 }

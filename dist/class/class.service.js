@@ -46,8 +46,28 @@ let ClassService = class ClassService {
             },
         });
     }
-    createClass(data) {
-        return this.prisma.class.create({ data });
+    async createClass(data) {
+        const { name, grade, teacherIds } = data;
+        if (teacherIds?.length) {
+            const existingTeachers = await this.prisma.teacher.count({
+                where: { id: { in: teacherIds } }
+            });
+            if (existingTeachers !== teacherIds.length) {
+                throw new common_1.BadRequestException('یک یا چند معلم یافت نشدند');
+            }
+        }
+        return this.prisma.class.create({
+            data: {
+                name,
+                grade,
+                teachers: teacherIds?.length
+                    ? { connect: teacherIds.map(id => ({ id })) }
+                    : undefined,
+            },
+            include: {
+                teachers: { include: { user: true } },
+            },
+        });
     }
     async getAllClasses() {
         return this.prisma.class.findMany({

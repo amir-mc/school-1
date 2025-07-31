@@ -20,10 +20,10 @@ import { RolesGuard } from 'src/auth/roles.guard';
 export class ClassController {
   constructor(private readonly classService: ClassService) {}
 
-  @Post()
-  create(@Body() body: { name: string; grade: number }) {
-    return this.classService.createClass(body);
-  }
+@Post()
+create(@Body() body: { name: string; grade: number; teacherIds?: string[] }) {
+  return this.classService.createClass(body);
+}
 
   @Get()
   findAll() {

@@ -30,7 +30,10 @@ export class AdminController {
   deleteUser(@Param('id') id: string) {
     return this.adminService.deleteUser(id);
   }
-
+  // @Get('users')
+  // getUsersByRole(@Query('role') role: string) {
+  //   return this.adminService.getUsersByRole(role);
+  // }
   @Get('users/:id')
 getUserById(@Param('id') id: string) {
   return this.adminService.getUserById(id);

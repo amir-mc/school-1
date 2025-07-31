@@ -31,9 +31,9 @@ export declare class TeacherController {
             createdAt: Date;
         };
         classes: {
-            grade: number;
             id: string;
             name: string;
+            grade: number;
         }[];
     } & {
         id: string;
@@ -43,4 +43,7 @@ export declare class TeacherController {
         id: string;
         userId: string;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
+    validateTeachers(ids: string): Promise<{
+        valid: boolean;
+    }>;
 }

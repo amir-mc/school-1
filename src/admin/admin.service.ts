@@ -147,6 +147,60 @@ async countAllUsers(): Promise<{ count: number }> {
     const count = await this.prisma.class.count();
     return { count };
   }
+  
+// async getUsersByRole(role: string) {
+//     const normalizedRole = role?.toUpperCase();
+
+//     if (normalizedRole === 'TEACHER') {
+//       return this.prisma.teacher.findMany({
+//         include: {
+//           user: {
+//             select: {
+//               id: true,
+//               username: true,
+//                name: true,
+//               role: true,
+//             },
+//           },
+//         },
+//       });
+//     }
+
+//     if (normalizedRole === 'STUDENT') {
+//       return this.prisma.student.findMany({
+//         include: {
+//           user: {
+//             select: {
+//               id: true,
+//               username: true,
+//               name: true,
+
+//               role: true,
+//             },
+//           },
+//         },
+//       });
+//     }
+
+//     if (normalizedRole === 'PARENT') {
+//       return this.prisma.parent.findMany({
+//         include: {
+//           user: {
+//             select: {
+//               id: true,
+//               username: true,
+//              name: true,
+//               role: true,
+//             },
+//           },
+//         },
+//       });
+//     }
+
+//     // اگر ADMIN یا نقش نامعتبر باشه
+    
+
+//   }
 
 
 }

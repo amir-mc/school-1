@@ -51,9 +51,9 @@ export declare class AdminController {
     findAll(query: string, role: string, classId: string): Promise<({
         student: {
             id: string;
-            userId: string;
             classId: string;
             parentId: string | null;
+            userId: string;
         } | null;
     } & {
         id: string;

@@ -1,5 +1,5 @@
 // src/class/class.service.ts
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { PrismaService } from 'src/prisma/prisma.service';
 
@@ -39,9 +39,33 @@ async removeTeacherFromClass(classId: string, teacherId: string) {
   });
 }
 
-  createClass(data: { name: string; grade: number }) {
-    return this.prisma.class.create({ data });
+async createClass(data: { name: string; grade: number; teacherIds?: string[] }) {
+  const { name, grade, teacherIds } = data;
+  
+  // Verify all teacher IDs exist before creating the class
+  if (teacherIds?.length) {
+    const existingTeachers = await this.prisma.teacher.count({
+      where: { id: { in: teacherIds } }
+    });
+    
+    if (existingTeachers !== teacherIds.length) {
+      throw new BadRequestException('یک یا چند معلم یافت نشدند');
+    }
   }
+
+  return this.prisma.class.create({
+    data: {
+      name,
+      grade,
+      teachers: teacherIds?.length
+        ? { connect: teacherIds.map(id => ({ id })) }
+        : undefined,
+    },
+    include: {
+      teachers: { include: { user: true } },
+    },
+  });
+}
 
     async  getAllClasses() {
         return this.prisma.class.findMany({

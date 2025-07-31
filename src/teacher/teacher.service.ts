@@ -2,7 +2,7 @@
 import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
-@Injectable()
+@Injectable() 
 export class TeacherService {
   constructor(private prisma: PrismaService) {}
 
@@ -36,5 +36,36 @@ export class TeacherService {
 
   deleteTeacher(id: string) {
     return this.prisma.teacher.delete({ where: { id } });
+  }
+   async getTeachersForClassSelection() {
+    return this.prisma.teacher.findMany({
+      select: {
+        id: true,
+        user: {
+          select: {
+            id: true,
+            name: true
+          }
+        }
+      },
+      orderBy: {
+        user: {
+          name: 'asc'
+        }
+      }
+    });
+  }
+
+  async validateTeachers(teacherIds: string[]) {
+    const existingTeachers = await this.prisma.teacher.count({
+      where: { 
+        id: { in: teacherIds } 
+      }
+    });
+    
+    if (existingTeachers !== teacherIds.length) {
+      throw new NotFoundException('یک یا چند معلم یافت نشدند');
+    }
+    return true;
   }
 }

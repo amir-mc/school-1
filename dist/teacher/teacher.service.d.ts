@@ -29,9 +29,9 @@ export declare class TeacherService {
             createdAt: Date;
         };
         classes: {
-            grade: number;
             id: string;
             name: string;
+            grade: number;
         }[];
     } & {
         id: string;
@@ -41,4 +41,12 @@ export declare class TeacherService {
         id: string;
         userId: string;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
+    getTeachersForClassSelection(): Promise<{
+        id: string;
+        user: {
+            id: string;
+            name: string;
+        };
+    }[]>;
+    validateTeachers(teacherIds: string[]): Promise<boolean>;
 }

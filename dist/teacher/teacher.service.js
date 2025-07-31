@@ -44,6 +44,35 @@ let TeacherService = class TeacherService {
     deleteTeacher(id) {
         return this.prisma.teacher.delete({ where: { id } });
     }
+    async getTeachersForClassSelection() {
+        return this.prisma.teacher.findMany({
+            select: {
+                id: true,
+                user: {
+                    select: {
+                        id: true,
+                        name: true
+                    }
+                }
+            },
+            orderBy: {
+                user: {
+                    name: 'asc'
+                }
+            }
+        });
+    }
+    async validateTeachers(teacherIds) {
+        const existingTeachers = await this.prisma.teacher.count({
+            where: {
+                id: { in: teacherIds }
+            }
+        });
+        if (existingTeachers !== teacherIds.length) {
+            throw new common_1.NotFoundException('یک یا چند معلم یافت نشدند');
+        }
+        return true;
+    }
 };
 exports.TeacherService = TeacherService;
 exports.TeacherService = TeacherService = __decorate([
