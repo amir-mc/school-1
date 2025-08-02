@@ -19,6 +19,7 @@ const jwt_auth_guard_1 = require("../auth/jwt-auth.guard");
 const roles_guard_1 = require("../auth/roles.guard");
 const admin_service_1 = require("./admin.service");
 const roles_decorator_1 = require("../auth/roles.decorator");
+const prisma_1 = require("../../generated/prisma/index.js");
 let AdminController = class AdminController {
     usersService;
     adminService;
@@ -58,6 +59,21 @@ let AdminController = class AdminController {
     }
     async countClasses() {
         return this.adminService.countClasses();
+    }
+    getPendingUsers(role) {
+        return this.adminService.getPendingUsersByRole(role);
+    }
+    confirmUser(userId, body) {
+        return this.adminService.confirmUser(userId, body);
+    }
+    async confirmTeacher(body) {
+        return this.adminService.confirmTeacher(body.userId);
+    }
+    confirmStudent(body) {
+        return this.adminService.confirmStudent(body.userId, body.classId);
+    }
+    async confirmParent(body) {
+        return this.adminService.confirmParent(body.userId);
     }
 };
 exports.AdminController = AdminController;
@@ -139,6 +155,44 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "countClasses", null);
+__decorate([
+    (0, common_1.Get)('users/pending/:role'),
+    __param(0, (0, common_1.Param)('role')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", void 0)
+], AdminController.prototype, "getPendingUsers", null);
+__decorate([
+    (0, common_1.Post)('users/confirm/:id'),
+    __param(0, (0, common_1.Param)('id')),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, Object]),
+    __metadata("design:returntype", void 0)
+], AdminController.prototype, "confirmUser", null);
+__decorate([
+    (0, common_1.Post)('confirm/teacher'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "confirmTeacher", null);
+__decorate([
+    (0, common_1.Post)('confirm/student'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], AdminController.prototype, "confirmStudent", null);
+__decorate([
+    (0, common_1.Post)('confirm/parent'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "confirmParent", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard, roles_guard_1.RolesGuard),

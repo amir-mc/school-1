@@ -57,6 +57,7 @@ export declare class GradesService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
             class: {
@@ -85,6 +86,7 @@ export declare class GradesService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
             class: {

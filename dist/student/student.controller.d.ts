@@ -34,6 +34,7 @@ export declare class StudentController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         parent: ({
@@ -43,6 +44,7 @@ export declare class StudentController {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {

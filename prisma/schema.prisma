@@ -27,7 +27,8 @@ model User {
   username String @unique
   password String
   role     Role
-
+  isConfirmed Boolean @default(false) 
+  
   student Student?
   teacher Teacher?
   parent  Parent?

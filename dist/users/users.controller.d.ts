@@ -13,6 +13,7 @@ export declare class UsersController {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     findAll(): Promise<{

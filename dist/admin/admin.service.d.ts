@@ -1,4 +1,5 @@
 import { PrismaService } from 'src/prisma/prisma.service';
+import { Role } from 'generated/prisma';
 export declare class AdminService {
     private readonly prisma;
     constructor(prisma: PrismaService);
@@ -15,6 +16,7 @@ export declare class AdminService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     updateUser(id: string, dto: {
@@ -28,6 +30,7 @@ export declare class AdminService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     getUserById(id: string): Promise<{
@@ -36,6 +39,7 @@ export declare class AdminService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     findUsers({ query, classId, role }: {
@@ -55,6 +59,7 @@ export declare class AdminService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     })[]>;
     getAllClasses(): import("generated/prisma").Prisma.PrismaPromise<{
@@ -74,6 +79,7 @@ export declare class AdminService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     countUsersByRole(role: string): Promise<{
@@ -84,5 +90,36 @@ export declare class AdminService {
     }>;
     countClasses(): Promise<{
         count: number;
+    }>;
+    getPendingUsersByRole(role: Role): Promise<{
+        id: string;
+        name: string;
+        username: string;
+        password: string;
+        role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
+        createdAt: Date;
+    }[]>;
+    confirmUser(userId: string, body: {
+        classId?: string;
+        parentId?: string;
+    }): Promise<{
+        id: string;
+        userId: string;
+    } | {
+        message: string;
+    }>;
+    confirmTeacher(userId: string): Promise<{
+        id: string;
+        userId: string;
+    }>;
+    confirmStudent(userId: string, classId: string): Promise<{
+        id: string;
+        userId: string;
+        classId: string;
+        parentId: string | null;
+    }>;
+    confirmParent(userId: string): Promise<{
+        message: string;
     }>;
 }

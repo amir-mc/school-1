@@ -3,9 +3,9 @@ export declare class ClassService {
     private prisma;
     constructor(prisma: PrismaService);
     addTeacherToClass(classId: string, teacherId: string): Promise<{
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }>;
     removeTeacherFromClass(classId: string, teacherId: string): Promise<{
         teachers: ({
@@ -15,6 +15,7 @@ export declare class ClassService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {
@@ -22,9 +23,9 @@ export declare class ClassService {
             userId: string;
         })[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }>;
     createClass(data: {
         name: string;
@@ -38,6 +39,7 @@ export declare class ClassService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {
@@ -45,9 +47,9 @@ export declare class ClassService {
             userId: string;
         })[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }>;
     getAllClasses(): Promise<({
         students: ({
@@ -57,6 +59,7 @@ export declare class ClassService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {
@@ -72,6 +75,7 @@ export declare class ClassService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {
@@ -81,29 +85,30 @@ export declare class ClassService {
         schedules: {
             id: string;
             classId: string;
-            day: string;
             subject: string;
+            day: string;
             startTime: string;
             endTime: string;
         }[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     })[]>;
     addStudentToClass(classId: string, studentId: string): Promise<{
-        class: {
-            id: string;
-            name: string;
-            grade: number;
-        };
         user: {
             id: string;
             name: string;
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
+        };
+        class: {
+            grade: number;
+            id: string;
+            name: string;
         };
     } & {
         id: string;
@@ -119,6 +124,7 @@ export declare class ClassService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {
@@ -134,6 +140,7 @@ export declare class ClassService {
                 username: string;
                 password: string;
                 role: import("generated/prisma").$Enums.Role;
+                isConfirmed: boolean;
                 createdAt: Date;
             };
         } & {
@@ -143,27 +150,27 @@ export declare class ClassService {
         schedules: {
             id: string;
             classId: string;
-            day: string;
             subject: string;
+            day: string;
             startTime: string;
             endTime: string;
         }[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }) | null, null, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
     updateClass(id: string, data: {
         name?: string;
         grade?: number;
     }): import("generated/prisma").Prisma.Prisma__ClassClient<{
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
     deleteClass(id: string): import("generated/prisma").Prisma.Prisma__ClassClient<{
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
 }

@@ -15,6 +15,7 @@ export declare class TeacherController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
     } & {
@@ -28,12 +29,13 @@ export declare class TeacherController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         classes: {
+            grade: number;
             id: string;
             name: string;
-            grade: number;
         }[];
     } & {
         id: string;

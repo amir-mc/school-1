@@ -10,6 +10,7 @@ export declare class AuthService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     login(user: any): Promise<{

@@ -15,6 +15,7 @@ export declare class ParentController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         students: {
@@ -34,6 +35,7 @@ export declare class ParentController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         students: {
@@ -56,6 +58,7 @@ export declare class ParentController {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     deleteParent(id: string): Promise<{

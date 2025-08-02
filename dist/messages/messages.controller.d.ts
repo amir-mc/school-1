@@ -73,6 +73,7 @@ export declare class MessagesController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
     } & {
@@ -91,6 +92,7 @@ export declare class MessagesController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         } | null;
     } & {
@@ -109,6 +111,7 @@ export declare class MessagesController {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
     } & {

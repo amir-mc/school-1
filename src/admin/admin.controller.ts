@@ -89,6 +89,38 @@ async countAllUsers() {
     return this.adminService.countClasses();
   }
 
+  // GET /admin/users/pending/:role
+@Get('users/pending/:role')
+getPendingUsers(@Param('role') role: Role) {
+  return this.adminService.getPendingUsersByRole(role);
+}
+
+// POST /admin/users/confirm/:id
+@Post('users/confirm/:id')
+confirmUser(
+  @Param('id') userId: string,
+  @Body() body: { classId?: string; parentId?: string } // فقط برای دانش‌آموز نیاز به classId و parentId است
+) {
+  return this.adminService.confirmUser(userId, body);
+}
+@Post('confirm/teacher')
+  async confirmTeacher(@Body() body: { userId: string }) {
+    return this.adminService.confirmTeacher(body.userId)
+  }
+
+
+
+  @Post('confirm/student')
+@UseGuards(JwtAuthGuard) // اگر گارد داری
+confirmStudent(@Body() body: { userId: string; classId: string }) {
+  return this.adminService.confirmStudent(body.userId, body.classId);
+}
+@Post('confirm/parent')
+@UseGuards(JwtAuthGuard)
+async confirmParent(@Body() body: { userId: string }) {
+  return this.adminService.confirmParent(body.userId);
+}
+
 
 
 }

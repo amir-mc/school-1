@@ -13,6 +13,7 @@ export declare class ParentService {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         students: {
@@ -32,6 +33,7 @@ export declare class ParentService {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         students: {
@@ -54,6 +56,7 @@ export declare class ParentService {
         username: string;
         password: string;
         role: import("generated/prisma").$Enums.Role;
+        isConfirmed: boolean;
         createdAt: Date;
     }>;
     deleteParent(id: string): Promise<{

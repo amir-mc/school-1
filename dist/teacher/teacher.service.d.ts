@@ -13,6 +13,7 @@ export declare class TeacherService {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
     } & {
@@ -26,12 +27,13 @@ export declare class TeacherService {
             username: string;
             password: string;
             role: import("generated/prisma").$Enums.Role;
+            isConfirmed: boolean;
             createdAt: Date;
         };
         classes: {
+            grade: number;
             id: string;
             name: string;
-            grade: number;
         }[];
     } & {
         id: string;
@@ -42,11 +44,11 @@ export declare class TeacherService {
         userId: string;
     }, never, import("generated/prisma/runtime/library").DefaultArgs, import("generated/prisma").Prisma.PrismaClientOptions>;
     getTeachersForClassSelection(): Promise<{
-        id: string;
         user: {
             id: string;
             name: string;
         };
+        id: string;
     }[]>;
     validateTeachers(teacherIds: string[]): Promise<boolean>;
 }
