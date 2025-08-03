@@ -61,6 +61,22 @@ let StudentService = class StudentService {
             },
         });
     }
+    async assignParentToStudent(studentId, parentId) {
+        const student = await this.prisma.student.findUnique({
+            where: { id: studentId },
+        });
+        if (!student)
+            throw new common_1.NotFoundException('دانش‌آموز یافت نشد');
+        const parent = await this.prisma.parent.findUnique({
+            where: { id: parentId },
+        });
+        if (!parent)
+            throw new common_1.NotFoundException('والد یافت نشد');
+        return this.prisma.student.update({
+            where: { id: studentId },
+            data: { parentId },
+        });
+    }
 };
 exports.StudentService = StudentService;
 exports.StudentService = StudentService = __decorate([

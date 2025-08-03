@@ -27,6 +27,15 @@ export declare class StudentController {
         classId: string;
         parentId: string | null;
     }>;
+    assignParent(body: {
+        studentId: string;
+        parentId: string;
+    }): Promise<{
+        id: string;
+        userId: string;
+        classId: string;
+        parentId: string | null;
+    }>;
     findAll(): import("generated/prisma").Prisma.PrismaPromise<({
         user: {
             id: string;
@@ -36,6 +45,11 @@ export declare class StudentController {
             role: import("generated/prisma").$Enums.Role;
             isConfirmed: boolean;
             createdAt: Date;
+        };
+        class: {
+            id: string;
+            name: string;
+            grade: number;
         };
         parent: ({
             user: {
@@ -51,11 +65,6 @@ export declare class StudentController {
             id: string;
             userId: string;
         }) | null;
-        class: {
-            grade: number;
-            id: string;
-            name: string;
-        };
     } & {
         id: string;
         userId: string;

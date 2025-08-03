@@ -10,7 +10,7 @@ export class ParentController {
     return this.parentService.createParent(body.userId);
   }
 
-  @Get()
+  @Get('list')
   findAll() {
     return this.parentService.getAllParents();
   }

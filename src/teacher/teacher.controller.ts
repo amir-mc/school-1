@@ -25,7 +25,7 @@ export class TeacherController {
     return this.teacherService.createTeacher(body.userId);
   }
 
-  @Get()
+  @Get('/list')
   findAll() {
     return this.teacherService.getAllTeachers();
   }
@@ -45,4 +45,10 @@ export class TeacherController {
     await this.teacherService.validateTeachers(teacherIds);
     return { valid: true };
   }
+  @Post('assign-teachers')
+async assignTeachersToClass(
+  @Body() body: { classId: string; teacherIds: string[] }
+) {
+  return this.teacherService.assignTeachersToClass(body.classId, body.teacherIds);
+}
 }

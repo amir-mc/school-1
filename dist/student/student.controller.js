@@ -32,6 +32,9 @@ let StudentController = class StudentController {
     create(body) {
         return this.studentService.createStudent(body.userId, body.parentId, body.classId);
     }
+    assignParent(body) {
+        return this.studentService.assignParentToStudent(body.studentId, body.parentId);
+    }
     findAll() {
         return this.studentService.getAllStudents();
     }
@@ -59,6 +62,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], StudentController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('assign-parent'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], StudentController.prototype, "assignParent", null);
 __decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),

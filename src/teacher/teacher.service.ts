@@ -68,4 +68,45 @@ export class TeacherService {
     }
     return true;
   }
+  // src/admin/admin.service.ts
+async assignTeachersToClass(classId: string, teacherIds: string[]) {
+  // اول بررسی می‌کنیم آیا کلاس وجود دارد یا نه
+  const existingClass = await this.prisma.class.findUnique({
+    where: { id: classId },
+  });
+
+  if (!existingClass) {
+    throw new NotFoundException('کلاس یافت نشد');
+  }
+
+  // لیست معلم‌ها را بررسی می‌کنیم که معتبر باشند
+  const validTeachers = await this.prisma.teacher.findMany({
+    where: {
+      id: {
+        in: teacherIds,
+      },
+    },
+  });
+
+  if (validTeachers.length !== teacherIds.length) {
+    throw new BadRequestException('برخی معلم‌ها یافت نشدند');
+  }
+
+  // اتصال many-to-many با جدول join: TeacherClass
+  return this.prisma.class.update({
+    where: { id: classId },
+    data: {
+      teachers: {
+        set: [], // حذف معلم‌های قبلی
+        connect: teacherIds.map((id) => ({ id })),
+      },
+    },
+    include: {
+      teachers: {
+        include: { user: true },
+      },
+    },
+  });
+}
+
 }

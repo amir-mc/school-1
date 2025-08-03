@@ -33,6 +33,11 @@ export declare class StudentService {
             isConfirmed: boolean;
             createdAt: Date;
         };
+        class: {
+            id: string;
+            name: string;
+            grade: number;
+        };
         parent: ({
             user: {
                 id: string;
@@ -47,15 +52,16 @@ export declare class StudentService {
             id: string;
             userId: string;
         }) | null;
-        class: {
-            grade: number;
-            id: string;
-            name: string;
-        };
     } & {
         id: string;
         userId: string;
         classId: string;
         parentId: string | null;
     })[]>;
+    assignParentToStudent(studentId: string, parentId: string): Promise<{
+        id: string;
+        userId: string;
+        classId: string;
+        parentId: string | null;
+    }>;
 }

@@ -73,6 +73,38 @@ let TeacherService = class TeacherService {
         }
         return true;
     }
+    async assignTeachersToClass(classId, teacherIds) {
+        const existingClass = await this.prisma.class.findUnique({
+            where: { id: classId },
+        });
+        if (!existingClass) {
+            throw new common_1.NotFoundException('کلاس یافت نشد');
+        }
+        const validTeachers = await this.prisma.teacher.findMany({
+            where: {
+                id: {
+                    in: teacherIds,
+                },
+            },
+        });
+        if (validTeachers.length !== teacherIds.length) {
+            throw new common_1.BadRequestException('برخی معلم‌ها یافت نشدند');
+        }
+        return this.prisma.class.update({
+            where: { id: classId },
+            data: {
+                teachers: {
+                    set: [],
+                    connect: teacherIds.map((id) => ({ id })),
+                },
+            },
+            include: {
+                teachers: {
+                    include: { user: true },
+                },
+            },
+        });
+    }
 };
 exports.TeacherService = TeacherService;
 exports.TeacherService = TeacherService = __decorate([
