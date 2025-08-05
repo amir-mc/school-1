@@ -28,16 +28,22 @@ export class StudentController {
   create(@Body() body: { userId: string; parentId: string; classId: string }) {
     return this.studentService.createStudent(body.userId, body.parentId, body.classId);
   }
-   @Post('assign-parent')
-  assignParent(
-    @Body() body: { studentId: string; parentId: string },
-  ) {
-    return this.studentService.assignParentToStudent(body.studentId, body.parentId);
-  }
+  //  @Post('assign-parent')
+  // assignParent(
+  //   @Body() body: { studentId: string; parentId: string },
+  // ) {
+  //   return this.studentService.assignParentToStudent(body.studentId, body.parentId);
+  // }
 
 
   @Get()
   findAll() {
     return this.studentService.getAllStudents();
   }
+  @Post('assign-parent')
+async assignParentToStudent(
+  @Body() body: { studentId: string; parentId: string }
+) {
+  return this.studentService.assignParentToStudent(body.studentId, body.parentId);
+}
 }

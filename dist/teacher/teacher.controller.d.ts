@@ -33,9 +33,9 @@ export declare class TeacherController {
             createdAt: Date;
         };
         classes: {
+            grade: number;
             id: string;
             name: string;
-            grade: number;
         }[];
     } & {
         id: string;
@@ -67,8 +67,8 @@ export declare class TeacherController {
             userId: string;
         })[];
     } & {
+        grade: number;
         id: string;
         name: string;
-        grade: number;
     }>;
 }

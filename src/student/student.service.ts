@@ -57,22 +57,54 @@ export class StudentService {
     });
   }
 
-   async assignParentToStudent(studentId: string, parentId: string) {
-    const student = await this.prisma.student.findUnique({
-      where: { id: studentId },
-    });
+  //  async assignParentToStudent(studentId: string, parentId: string) {
+  //   const student = await this.prisma.student.findUnique({
+  //     where: { id: studentId },
+  //   });
 
-    if (!student) throw new NotFoundException('دانش‌آموز یافت نشد');
+  //   if (!student) throw new NotFoundException('دانش‌آموز یافت نشد');
 
-    const parent = await this.prisma.parent.findUnique({
-      where: { id: parentId },
-    });
+  //   const parent = await this.prisma.parent.findUnique({
+  //     where: { id: parentId },
+  //   });
 
-    if (!parent) throw new NotFoundException('والد یافت نشد');
+  //   if (!parent) throw new NotFoundException('والد یافت نشد');
 
-    return this.prisma.student.update({
-      where: { id: studentId },
-      data: { parentId },
-    });
+  //   return this.prisma.student.update({
+  //     where: { id: studentId },
+  //     data: { parentId },
+  //   });
+  // }
+  
+async assignParentToStudent(studentId: string, parentId: string) {
+  const student = await this.prisma.student.findUnique({
+    where: { id: studentId },
+  });
+
+  if (!student) {
+    throw new NotFoundException('دانش‌آموز یافت نشد');
   }
+
+  const parent = await this.prisma.parent.findUnique({
+    where: { id: parentId },
+  });
+
+  if (!parent) {
+    throw new NotFoundException('والد یافت نشد');
+  }
+
+  // اتصال دانش‌آموز به والد
+  return this.prisma.student.update({
+    where: { id: studentId },
+    data: {
+      parentId: parentId,
+    },
+    include: {
+      parent: {
+        include: { user: true },
+      },
+    },
+  });
+}
+
 }

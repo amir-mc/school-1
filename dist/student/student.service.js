@@ -65,16 +65,25 @@ let StudentService = class StudentService {
         const student = await this.prisma.student.findUnique({
             where: { id: studentId },
         });
-        if (!student)
+        if (!student) {
             throw new common_1.NotFoundException('دانش‌آموز یافت نشد');
+        }
         const parent = await this.prisma.parent.findUnique({
             where: { id: parentId },
         });
-        if (!parent)
+        if (!parent) {
             throw new common_1.NotFoundException('والد یافت نشد');
+        }
         return this.prisma.student.update({
             where: { id: studentId },
-            data: { parentId },
+            data: {
+                parentId: parentId,
+            },
+            include: {
+                parent: {
+                    include: { user: true },
+                },
+            },
         });
     }
 };
